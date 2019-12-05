@@ -2,6 +2,7 @@
 "  vimrc for windows
 "  Original Author: keelii
 "  Editor: YKL
+"  hihi
 " ---------------------------------------
 
 " Startup {{{
