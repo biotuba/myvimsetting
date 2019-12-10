@@ -81,14 +81,29 @@ call plug#end()
 "
 " }}}
 " Key Mapping {{{
+let mapleader=";"
 nnoremap <F5> :NERDTreeToggle<CR>
+nnoremap <F4> :TableModeToggle<CR>
 nnoremap setup :tabe c:\tools\vim\_vimrc<cr>
 nnoremap tn :tabn<cr>
 nnoremap tN :tabN<cr>
-"
-" }}}
-"
-"
+" 視窗移動
+nnoremap <leader>wh <c-w>h
+nnoremap <leader>wj <c-w>j
+nnoremap <leader>wk <c-w>k
+nnoremap <leader>wl <c-w>l
+nnoremap <leader>ww <c-w>w
+nnoremap <leader>wp <c-w>p
+nnoremap <leader>wJ <c-w>J
+nnoremap <leader>w< <c-w>20<
+nnoremap <leader>w> <c-w>20>
+" visual block mode
+nnoremap <leader>vb <c-s-q> 
+
+nnoremap <leader>q :q
+nnoremap <leader>w :w
+
+"}}}
 "
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
