@@ -2,18 +2,16 @@
 "  vimrc for windows
 "  Original Author: keelii
 "  Editor: YKL
-"  hihi
 " ---------------------------------------
 
 " Startup {{{
 filetype indent plugin on
-source $VIMRUNTIME\mswin.vim
-behave mswin
+colo desert
 " vim fold
-augroup ft_vim
-	au!
-	au FileType vim setlocal foldmethod=marker
-augroup END
+"augroup ft_vim
+"	au!
+"	au FileType vim setlocal foldmethod=marker
+"augroup END
 " }}}	
 " General {{{
 set nocompatible
@@ -26,12 +24,16 @@ set nobomb
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 set clipboard+=unnamed
 set winaltkeys=no
+set ignorecase
+set incsearch
+source $VIMRUNTIME\mswin.vim
+behave mswin
 " }}}
 " Language & Encoding {{{
-set fileencodings=ucs-bom,utf-8,chinese
-set encoding=utf-8
-set langmenu=zh_TW.utf-8
-language messages zh_tw.utf-8 
+setglobal fileencodings=ucs-bom,utf-8,chinese
+set encoding=utf8
+set langmenu=zh_TW.utf8
+language messages zh_tw.utf8 
 "
 "
 " }}}
@@ -40,24 +42,21 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 " Vim with all enhancements
 " source $VIMRUNTIME/vimrc_example.vim
-colorscheme darkblue
+set guifont=Hack:h12
 set cursorline
 set hlsearch
-set number
+set nu rnu
 set lines=35 columns=140
 set splitbelow
 set splitright
-set rnu
-"set ruler
 " 不顯示工具列設定
- set guioptions-=T
- set guioptions-=m
- set guioptions-=L
- set guioptions-=r
- set guioptions-=b
- set guioptions-=e
- set nolist
- set guifont=Hack:h14
+" set guioptions-=T
+" set guioptions-=m
+" set guioptions-=L
+" set guioptions-=r
+" set guioptions-=b
+set guioptions-=e
+set nolist
 "
 "  }}}
 " Format {{{
@@ -70,23 +69,29 @@ set foldmethod=indent
 set shiftwidth=4
 syntax on
 " }}}
-" Plugin {{{
-"
-call plug#begin('C:/tools/vim/vim81/pluged') 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'dhruvasagar/vim-table-mode'
-call plug#end()
-"
-" }}}
 " Key Mapping {{{
 let mapleader=";"
+" Toggles
 nnoremap <F5> :NERDTreeToggle<CR>
 nnoremap <F4> :TableModeToggle<CR>
-nnoremap setup :tabe c:\tools\vim\_vimrc<cr>
-nnoremap tn :tabn<cr>
-nnoremap tN :tabN<cr>
+
+nnoremap <leader>tn :tabn<CR>
+nnoremap <leader>tN :tabN<CR>
+nnoremap <leader>todo :wall<CR>:vimgrep /\[ \]/g *.*<CR>:copen<CR>
+nnoremap <leader>setup :wall<CR>:tabe c:\tools\vim\_vimrc
+nnoremap <leader>bm :wall<CR>:tabe D:\temp\log\常用網站.md<CR>
+noremap <leader>apply :w<cr>:so c:\tools\vim\_vimrc<CR>
+nnoremap <F3> "=strftime("%c")<CR>p
+nnoremap <leader>q :q
+nnoremap <leader>w :w
+inoremap <F3> <Esc>"=strftime("%c")<CR>pa
+inoremap img<Tab> ![]()<esc>F("*pF[a
+nnoremap ;lnk i[]()<esc>F("*pF[a
+inoremap lnk<Tab> []()<esc>F("*pF[a
+" 新任務
+inoremap nj<tab> <esc>0I# [ ] () <esc>"=strftime("%c")<cr>pF)a 
+nnoremap nj 0I# [ ] () <esc>"=strftime("%c")<cr>pF)a 
+
 " 視窗移動
 nnoremap <leader>wh <c-w>h
 nnoremap <leader>wj <c-w>j
@@ -100,11 +105,19 @@ nnoremap <leader>w> <c-w>20>
 " visual block mode
 nnoremap <leader>vb <c-s-q> 
 
-nnoremap <leader>q :q
-nnoremap <leader>w :w
-
-"}}}
 "
+" }}}
+" Plugin {{{
+call plug#begin('C:\tools\vim\vim81\pluged')
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'powerline/powerline'
+"Plug 'nelstrom/vim-markdown-folding'
+Plug 'dhruvasagar/vim-table-mode'
+call plug#end()
+" }}}
+
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
 if &diffopt !~# 'internal'
@@ -142,4 +155,18 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
+
+" vim-markdown-folding
+set nocompatible
+if has("autocmd")
+        filetype plugin indent on
+endif
+
+" NERDTree {{{
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
+"
+
 
